@@ -1,7 +1,8 @@
 package com.quest.qapigen.services;
 
+import java.io.IOException;
 import java.util.List;
-
+import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import com.quest.qapigen.dto.Entity;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.dto.Property;
 import com.quest.qapigen.dto.RequestBody;
+import com.quest.qapigen.utils.FileUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,20 +18,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EntityCodeGenService {
 
-	public void generateEntity(PayloadRequest payloadRequest) {
+	public void generateEntity(PayloadRequest payloadRequest) throws IOException {
 		log.info("Entity & DTO generation started");
-		String dtoCode = null;
 		Entity entityRequest = payloadRequest.getEntity();
 		RequestBody dtoRequest = payloadRequest.getRequestBody();
-		String entityCode = generateEntityClass(entityRequest.getEntityName(), entityRequest.getProperties());
 		if (!StringUtils.isEmpty(dtoRequest.getDtoName())) {
-			dtoCode = generateEntityClass(dtoRequest.getDtoName(), dtoRequest.getProperties());
+			StringBuilder dtoCode = generateEntityClass(dtoRequest.getDtoName(), dtoRequest.getProperties());
+			// Create the controller directory if it doesn't exist
+			String controllerFilePath = OUTPUT_FOLDER + "/" + dtoRequest.getDtoName() + ".java";
+			FileUtils.writeToFile(controllerFilePath, dtoCode);
+			log.info("DTO generation completed " + dtoCode);
 		}
-		log.info("Entity generation completed " + entityCode);
-		log.info("DTO generation completed " + dtoCode);
+		if (!StringUtils.isEmpty(entityRequest.getEntityName())) {
+			StringBuilder entityCode = generateEntityClass(entityRequest.getEntityName(), entityRequest.getProperties());
+			// Create the controller directory if it doesn't exist
+			String controllerFilePath = OUTPUT_FOLDER + "/" + entityRequest.getEntityName() + ".java";
+			FileUtils.writeToFile(controllerFilePath, entityCode);
+			log.info("Entity generation completed " + entityCode);
+		}
 	}
 
-	private static String generateEntityClass(String className, List<Property> fields) {
+	private static StringBuilder generateEntityClass(String className, List<Property> fields) {
 		StringBuilder sb = new StringBuilder();
 
 		// Package declaration (if applicable)
@@ -83,7 +92,7 @@ public class EntityCodeGenService {
 		// Class closing brace
 		sb.append("}");
 
-		return sb.toString();
+		return sb;
 	}
 
 	private static String capitalizeFirstLetter(String str) {
