@@ -1,5 +1,6 @@
 Create controller file
 Service layer code template -- optional
+Create validators
 Create entity file
 Create DTOs as needed
 Create mapper file
