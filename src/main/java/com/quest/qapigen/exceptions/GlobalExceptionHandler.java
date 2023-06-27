@@ -13,10 +13,9 @@ import com.quest.qapigen.utils.DateUtils;
 /**
  * It's a global exception handler class for all
  * 
- * @author GiduguSa
- * @since 1.0
+ * @author RanjanRo
+ *
  */
-@PropertySource("classpath:/error_messages.properties")
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
