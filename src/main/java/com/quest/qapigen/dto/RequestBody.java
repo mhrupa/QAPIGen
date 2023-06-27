@@ -15,15 +15,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PayloadRequest {
+public class RequestBody {
 
-	private String apiUrl;
-	private String method;
-	private String methodName;
-	private RequestBody requestBody;
-	private List<RequestHeader> requestHeaders;
-	private List<RequestParam> requestParams;
-	private String response;
-	private Entity entity;
-
+	private String dtoName;
+    private List<Property> properties;
+	
 }
