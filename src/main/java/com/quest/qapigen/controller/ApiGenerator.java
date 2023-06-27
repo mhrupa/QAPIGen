@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ApiGenerator {
 
 	@PostMapping("generate-api")
-	public void generateApi() {
+	public void generateApi(String payload) {
 		log.info("Testing");
 	}
 }
