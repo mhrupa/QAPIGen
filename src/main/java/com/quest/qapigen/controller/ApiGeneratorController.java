@@ -15,7 +15,7 @@ public class ApiGeneratorController {
 	@Autowired
 	private ApiCodeGeneratorService apiCodeGeneratorService;
 	
-	@PostMapping("generate-api")
+	@PostMapping("/generate-api")
 	public void generateApi(String payload) {
 		log.info("Testing");
 		apiCodeGeneratorService.generateControllerCode(payload);
