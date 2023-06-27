@@ -19,10 +19,27 @@
             "validations": []
         }
     ],
-    "requestParams": [
+    "pathVariables": [
         {
             "propertyName": "",
             "propertyType": "",
+            "validations": []
+        }
+    ],
+    "requestParams": [
+        {
+            "propertyName": "testProperty",
+            "propertyType": "String",
+            "validations": []
+        },
+        {
+            "propertyName": "testProperty2",
+            "propertyType": "String",
+            "validations": []
+        },
+        {
+            "propertyName": "testProperty3",
+            "propertyType": "int",
             "validations": []
         }
     ],
