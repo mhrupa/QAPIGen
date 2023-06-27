@@ -2,11 +2,13 @@ package com.quest.qapigen.services;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.quest.qapigen.dto.Entity;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.dto.Property;
+import com.quest.qapigen.dto.RequestBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,10 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 public class EntityCodeGenService {
 
 	public void generateEntity(PayloadRequest payloadRequest) {
-		log.info("Entity generation started");
+		log.info("Entity & DTO generation started");
+		String dtoCode = null;
 		Entity entityRequest = payloadRequest.getEntity();
+		RequestBody dtoRequest = payloadRequest.getRequestBody();
 		String entityCode = generateEntityClass(entityRequest.getEntityName(), entityRequest.getProperties());
-		log.info("Entity generation completed" + entityCode);
+		if (!StringUtils.isEmpty(dtoRequest.getDtoName())) {
+			dtoCode = generateEntityClass(dtoRequest.getDtoName(), dtoRequest.getProperties());
+		}
+		log.info("Entity generation completed " + entityCode);
+		log.info("DTO generation completed " + dtoCode);
 	}
 
 	private static String generateEntityClass(String className, List<Property> fields) {
