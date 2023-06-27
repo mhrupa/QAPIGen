@@ -3,6 +3,7 @@ package com.quest.qapigen.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.mapper.PayloadRequestMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,17 @@ public class ApiCodeGeneratorService {
 	public void generateControllerCode(String requestPayload) {
 		log.info("API code generation started.");
 		
-		payloadRequestMapper.jsonToDto(requestPayload);
+		try {
+			payloadRequestMapper.jsonToDto(requestPayload);
+			
+			controllerCodeGenService.generateControllerCode();
+			
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		controllerCodeGenService.generateControllerCode();
+		
 	}
 	
 	//private void Request

@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class ApiGenerator {
+public class ApiGeneratorController {
 
 	@Autowired
 	private ApiCodeGeneratorService apiCodeGeneratorService;
