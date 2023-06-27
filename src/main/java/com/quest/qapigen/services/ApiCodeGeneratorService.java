@@ -1,5 +1,7 @@
 package com.quest.qapigen.services;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,8 @@ public class ApiCodeGeneratorService {
 	@Autowired
 	private ControllerCodeGenService controllerCodeGenService;
 
-	public void generateControllerCode(PayloadRequest requestPayload) {
+	public void generateControllerCode(PayloadRequest requestPayload) throws IOException {
 		log.info("API code generation started.");
-
-//			log.info(JsonUtils.toJson(requestPayload));
 		controllerCodeGenService.generateControllerCode(requestPayload);
 	}
 }

@@ -1,5 +1,8 @@
 package com.quest.qapigen.controller;
 
+import java.io.IOException;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +19,14 @@ public class ApiGeneratorController {
 
 	@Autowired
 	private ApiCodeGeneratorService apiCodeGeneratorService;
-	
+
 	@PostMapping("/generate-api")
 	public void generateApi(@RequestBody PayloadRequest payload) {
 		log.info("Code generation API called.");
-		apiCodeGeneratorService.generateControllerCode(payload);
+		try {
+			apiCodeGeneratorService.generateControllerCode(payload);
+		} catch (IOException e) {
+			log.error(ExceptionUtils.getStackTrace(e));
+		}
 	}
 }

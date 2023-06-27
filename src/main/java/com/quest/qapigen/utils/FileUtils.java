@@ -1,27 +1,21 @@
 package com.quest.qapigen.utils;
 
-import java.io.BufferedWriter;
+import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 public class FileUtils {
 
-	public static void writeToFile(String filePath, String content) throws IOException {
-		// Using FileWriter
-		try (FileWriter fileWriter = new FileWriter(filePath)) {
-			fileWriter.write(content);
-		}
+	public static void writeToFile(String filePath, StringBuilder content) throws IOException {
+		File dir = new File(OUTPUT_FOLDER);
+		dir.mkdirs();
 
-		// Using BufferedWriter
-		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
-			bufferedWriter.write(content);
-		}
-
-		// Using Files.write
-		Path path = Path.of(filePath);
-		Files.write(path, content.getBytes(), StandardOpenOption.CREATE);
+		// Write the controller code to a file
+		FileWriter writer = new FileWriter(filePath);
+		writer.write(content.toString());
+		writer.flush();
+		writer.close();
 	}
 }
