@@ -2,7 +2,7 @@ package com.quest.qapigen.exceptions;
 
 import java.util.List;
 
-import org.springframework.web.ErrorResponse;
+import com.quest.qapigen.constants.ErrorConstants;
 
 /**
  * Custom exceptions thrown during validation and other tasks by Content Server
