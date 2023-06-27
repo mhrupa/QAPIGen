@@ -1,0 +1,7 @@
+Create controller file
+Service layer code template -- optional
+Create entity file
+Create DTOs as needed
+Create mapper file
+Create flyway script
+Create zip with for the created files
