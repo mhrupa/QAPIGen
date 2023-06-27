@@ -19,7 +19,7 @@ public class ApiGeneratorController {
 	
 	@PostMapping("/generate-api")
 	public void generateApi(@RequestBody PayloadRequest payload) {
-		log.info("Testing");
+		log.info("Code generation API called.");
 		apiCodeGeneratorService.generateControllerCode(payload);
 	}
 }
