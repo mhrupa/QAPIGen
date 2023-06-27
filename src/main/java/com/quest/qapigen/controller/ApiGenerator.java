@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quest.qapigen.services.ControllerCodeGenService;
+import com.quest.qapigen.services.ApiCodeGeneratorService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,12 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ApiGenerator {
 
 	@Autowired
-	private ControllerCodeGenService controllerCodeGenService;
+	private ApiCodeGeneratorService apiCodeGeneratorService;
 	
 	@PostMapping("generate-api")
 	public void generateApi(String payload) {
 		log.info("Testing");
-		
-		controllerCodeGenService.generateControllerCode();
+		apiCodeGeneratorService.generateControllerCode(payload);
 	}
 }

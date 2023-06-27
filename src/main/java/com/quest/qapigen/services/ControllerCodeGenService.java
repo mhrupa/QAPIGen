@@ -11,6 +11,5 @@ public class ControllerCodeGenService {
 	public void generateControllerCode() {
 		log.info("controller code generation started.");
 		
-		
 	}
 }
