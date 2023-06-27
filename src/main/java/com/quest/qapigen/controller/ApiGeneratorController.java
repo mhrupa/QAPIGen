@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quest.qapigen.dto.PayloadRequest;
+import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.services.ApiCodeGeneratorService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class ApiGeneratorController {
 		log.info("Code generation API called.");
 		try {
 			apiCodeGeneratorService.generateControllerCode(payload);
-		} catch (IOException e) {
+		} catch (IOException | BaseException e) {
 			log.error(ExceptionUtils.getStackTrace(e));
 		}
 	}
