@@ -1,0 +1,40 @@
+{
+    "apiUrl": "/test-something",
+    "method": "PUT",
+    "methodName": "testSomething",
+    "requestBody": {
+        "dtoName": "",
+        "properties": [
+            {
+                "propertyName": "",
+                "propertyType": "",
+                "validations": []
+            }
+        ]
+    },
+    "requestHeaders": [
+        {
+            "propertyName": "",
+            "propertyType": "",
+            "validations": []
+        }
+    ],
+    "requestParams": [
+        {
+            "propertyName": "",
+            "propertyType": "",
+            "validations": []
+        }
+    ],
+    "response": "",
+    "entity": {
+        "entityName": "",
+        "properties": [
+            {
+                "propertyName": "",
+                "propertyType": "",
+                "validations": []
+            }
+        ]
+    }
+}
