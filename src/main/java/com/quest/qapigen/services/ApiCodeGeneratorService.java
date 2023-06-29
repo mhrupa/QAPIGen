@@ -17,8 +17,13 @@ public class ApiCodeGeneratorService {
 	@Autowired
 	private ControllerCodeGenService controllerCodeGenService;
 
-	public void generateControllerCode(PayloadRequest requestPayload) throws IOException, BaseException {
+	@Autowired
+	private EntityCodeGenService entityCodeGenService;
+	
+	public void generateApiCode(PayloadRequest requestPayload) throws IOException, BaseException {
 		log.info("API code generation started.");
+		
+		entityCodeGenService.generateModel(requestPayload);
 		controllerCodeGenService.generateControllerCode(requestPayload);
 	}
 }
