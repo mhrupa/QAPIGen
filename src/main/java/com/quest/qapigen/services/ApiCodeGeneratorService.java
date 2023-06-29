@@ -20,10 +20,15 @@ public class ApiCodeGeneratorService {
 	@Autowired
 	private EntityCodeGenService entityCodeGenService;
 	
+	@Autowired
+	private FlywayCodeGenService flywayCodeGenService;
+	
 	public void generateApiCode(PayloadRequest requestPayload) throws IOException, BaseException {
 		log.info("API code generation started.");
 		
 		entityCodeGenService.generateModel(requestPayload);
 		controllerCodeGenService.generateControllerCode(requestPayload);
+		flywayCodeGenService.generateFlywayCode(requestPayload);
+		
 	}
 }
