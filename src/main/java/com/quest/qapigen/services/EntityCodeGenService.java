@@ -25,17 +25,21 @@ public class EntityCodeGenService {
 		if (!StringUtils.isEmpty(dtoRequest.getDtoName())) {
 			StringBuilder dtoCode = generateEntityClass(dtoRequest.getDtoName(), dtoRequest.getProperties());
 			// Create the controller directory if it doesn't exist
-			String controllerFilePath = OUTPUT_FOLDER + "/" + dtoRequest.getDtoName() + ".java";
-			FileUtils.writeToFile(controllerFilePath, dtoCode);
+			writeFile(dtoCode, dtoRequest.getDtoName());
 			log.info("DTO generation completed " + dtoCode);
 		}
 		if (!StringUtils.isEmpty(entityRequest.getEntityName())) {
-			StringBuilder entityCode = generateEntityClass(entityRequest.getEntityName(), entityRequest.getProperties());
+			StringBuilder entityCode = generateEntityClass(entityRequest.getEntityName(),
+					entityRequest.getProperties());
 			// Create the controller directory if it doesn't exist
-			String controllerFilePath = OUTPUT_FOLDER + "/" + entityRequest.getEntityName() + ".java";
-			FileUtils.writeToFile(controllerFilePath, entityCode);
+			writeFile(entityCode, entityRequest.getEntityName());
 			log.info("Entity generation completed " + entityCode);
 		}
+	}
+
+	private void writeFile(StringBuilder stringBuilder, String className) throws IOException {
+		String controllerFilePath = OUTPUT_FOLDER + "/" + className + ".java";
+		FileUtils.writeToFile(controllerFilePath, stringBuilder);
 	}
 
 	private static StringBuilder generateEntityClass(String className, List<Property> fields) {
