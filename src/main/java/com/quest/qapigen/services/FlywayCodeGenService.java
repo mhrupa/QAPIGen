@@ -27,7 +27,7 @@ public class FlywayCodeGenService {
 	 * @throws IOException
 	 * @throws NullPointerException
 	 */
-	public void generateFlywayCode(PayloadRequest requestPayload) throws IOException, NullPointerException {
+	public void generateFlywayCode(PayloadRequest requestPayload) {
 		log.info("Flyway Code generation started");
 		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER
 				+ "flyway-migrations";
@@ -38,18 +38,22 @@ public class FlywayCodeGenService {
 			fileContent = generateSqlScript(entity);
 		}
 
-		// Creating the folder
-		Path folderPath = Paths.get(folderName);
-		Files.createDirectories(folderPath);
+		try {
+			// Creating the folder
+			Path folderPath = Paths.get(folderName);
+			Files.createDirectories(folderPath);
 
-		// Creating file inside the folder
-		Path filePath = Paths.get(folderName, fileName);
-		Files.createFile(filePath);
+			// Creating file inside the folder
+			Path filePath = Paths.get(folderName, fileName);
+			Files.createFile(filePath);
 
-		// Write content to the file
-		Files.write(filePath, fileContent.getBytes());
+			// Write content to the file
+			Files.write(filePath, fileContent.getBytes());
 
-		log.info("Folder and file created successfully.");
+			log.info("Folder and file created successfully.");
+		} catch (Exception e) {
+			log.info("Error in writing flyway script");
+		}
 		log.info("Flyway Code generation ended");
 	}
 
