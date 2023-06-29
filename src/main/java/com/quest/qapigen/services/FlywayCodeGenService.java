@@ -22,7 +22,7 @@ public class FlywayCodeGenService {
 
 	/**
 	 * 
-	 * @param payloadRequest
+	 * @param requestPayload
 	 */
 	public void generateFlywayCode(PayloadRequest requestPayload) {
 		log.info("Flyway Code generation started");
@@ -51,9 +51,10 @@ public class FlywayCodeGenService {
 		log.info("Flyway Code generation ended");
 	}
 
+
 	/**
 	 * 
-	 * @param payloadRequest
+	 * @param entity
 	 * @return
 	 */
 	private static String generateSqlScript(Entity entity) {
