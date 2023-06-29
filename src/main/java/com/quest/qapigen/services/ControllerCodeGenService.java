@@ -9,7 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.quest.qapigen.dto.PathVariable;
 import com.quest.qapigen.dto.PayloadRequest;
+import com.quest.qapigen.dto.RequestHeader;
 import com.quest.qapigen.dto.RequestParam;
 import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.utils.FileUtils;
@@ -52,26 +54,38 @@ public class ControllerCodeGenService {
 		// adding API documentation details
 		codeBuilder.append("\t@ApiOperation(value = \"Subscription cancellation for store\",")
 				.append(" produces = \"application/json\",").append("\n\t\tconsumes = \"application/json\")\n");
-		codeBuilder.append("\t@ApiResponses(value = { @ApiResponse(code = 200, message = \"Ok\", response = SuccessResponseDetails.class),\n");
+		codeBuilder.append("\t@ApiResponses(value = { @ApiResponse(code = 200, message = \"Ok\", response = String.class),\n");
 		codeBuilder.append("\t@ApiResponse(code = 400, message = \"Bad Request\", response = ErrorMessageDetails.class),\n");
 		codeBuilder.append("\t@ApiResponse(code = 404, message = \"Not found\", response = ErrorMessageDetails.class) })\n");
 		//		
 		
 		// adding method details
 		codeBuilder.append("\t").append("public ResponseEntity<String> ").append(payloadRequest.getMethodName())
-				.append("(");
+				.append("(\n");
+		boolean isMethodParameterAdded = false;
 		// adding request parameters as argument if available
-		getRequestParams(payloadRequest, codeBuilder);
+		isMethodParameterAdded = getRequestParams(payloadRequest, codeBuilder);
 		
 		// adding request headers as argument if available
-		// getRequestHeaders(payloadRequest, codeBuilder);
+		if(getRequestHeaders(payloadRequest, codeBuilder)) {
+			isMethodParameterAdded = true;
+		}
+		
+		// adding path variables as argument if available
+		if(getPathVariables(payloadRequest, codeBuilder)) {
+			isMethodParameterAdded = true;
+		}
+		
+		if (isMethodParameterAdded) {
+			codeBuilder = new StringBuilder(codeBuilder.substring(0, codeBuilder.length() -2));
+		}
 		
 		codeBuilder.append(") {\n\n");
 		codeBuilder.append("\t\t// MDC details goes here\n\n");
 		codeBuilder.append("\t\t// Controller logic goes here\n");
 		
+		// adding return statement
 		codeBuilder.append("\n\t\treturn new ResponseEntity<>(HttpStatus.OK.value(), HttpStatus.OK);\n");
-		
 		codeBuilder.append("\t}\n");
 		codeBuilder.append("}");
 
@@ -93,54 +107,70 @@ public class ControllerCodeGenService {
 		return classNameBuilder.toString();
 	}
 
-	private void getRequestParams(PayloadRequest payloadRequest, StringBuilder codeBuilder) throws BaseException {
-		
+	private boolean getRequestParams(PayloadRequest payloadRequest, StringBuilder codeBuilder)
+			throws BaseException {
+		log.info("Controller code checking for request params");
 		List<RequestParam> requestParams = payloadRequest.getRequestParams();
 		
 		if(CollectionUtils.isEmpty(requestParams)) {
-			return;
-		} 
+			return false;
+		}
 		boolean isParameterAdded = false;
-		StringBuilder requestParamString = new StringBuilder();
 		for(RequestParam requestParam: requestParams) {
-			log.info("Testing ******* {}", JsonUtils.toJson(requestParam));
 			if (StringUtils.isNotBlank(requestParam.getPropertyName())
 					&& StringUtils.isNotBlank(requestParam.getPropertyType())) {
-				requestParamString.append("@RequestParam ").append(requestParam.getPropertyType())
-				.append(" ") .append(requestParam.getPropertyName()).append(",\n\t\t ");
+				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(requestParam.getPropertyName())
+						.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @RequestParam ")
+						.append(requestParam.getPropertyType()).append(" ").append(requestParam.getPropertyName())
+						.append(",\n");
 				isParameterAdded = true;
 			}
 		}
-		
-		if (isParameterAdded) {
-			codeBuilder.append(requestParamString.substring(0, requestParamString.length() - 5));
-		}
+		return isParameterAdded;
 	}
 	
-private void getRequestHeaders(PayloadRequest payloadRequest, StringBuilder codeBuilder) throws BaseException {
+	private boolean getPathVariables(PayloadRequest payloadRequest, StringBuilder codeBuilder)
+			throws BaseException {
+		log.info("Controller code checking for request params");
+		List<PathVariable> pathVariables = payloadRequest.getPathVariables();
 		
-		List<RequestParam> requestParams = payloadRequest.getRequestParams();
-		
-		if(CollectionUtils.isEmpty(requestParams)) {
-			return;
-		} 
+		if(CollectionUtils.isEmpty(pathVariables)) {
+			return false;
+		}
 		boolean isParameterAdded = false;
-		StringBuilder requestParamString = new StringBuilder();
-		for(RequestParam requestParam: requestParams) {
-			log.info("Testing ******* {}", JsonUtils.toJson(requestParam));
-			if (StringUtils.isNotBlank(requestParam.getPropertyName())
-					&& StringUtils.isNotBlank(requestParam.getPropertyType())) {
-				requestParamString.append("@RequestParam ").append(requestParam.getPropertyType())
-				.append(" ") .append(requestParam.getPropertyName()).append(",\n\t\t ");
+		for(PathVariable pathVariable: pathVariables) {
+			if (StringUtils.isNotBlank(pathVariable.getPropertyName())
+					&& StringUtils.isNotBlank(pathVariable.getPropertyType())) {
+				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(pathVariable.getPropertyName())
+						.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @PathVariable ")
+						.append(pathVariable.getPropertyType()).append(" ").append(pathVariable.getPropertyName())
+						.append(",\n");
 				isParameterAdded = true;
 			}
 		}
+		return isParameterAdded;
+	}
+	
+	private boolean getRequestHeaders(PayloadRequest payloadRequest, StringBuilder codeBuilder) throws BaseException {
+		log.info("Controller code checking for request Headers");
+		List<RequestHeader> requestHeaders = payloadRequest.getRequestHeaders();
 		
-		if (isParameterAdded) {
-			codeBuilder.append(requestParamString.substring(0, requestParamString.length() - 5));
-
+		if(CollectionUtils.isEmpty(requestHeaders)) {
+			return false;
+		} 
+		boolean isParameterAdded = false;
+		for(RequestHeader requestHeader: requestHeaders) {
+			log.info("Testing ******* {}", JsonUtils.toJson(requestHeader));
+			if (StringUtils.isNotBlank(requestHeader.getPropertyName())
+					&& StringUtils.isNotBlank(requestHeader.getPropertyType())) {
+				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(requestHeader.getPropertyName())
+				.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @RequestHeader ")
+				.append(requestHeader.getPropertyType()).append(" ").append(requestHeader.getPropertyName())
+				.append(",\n");
+				isParameterAdded = true;
+			}
 		}
-		
+		return isParameterAdded;
 	}
 	
 	private String getMethodName(String inputMethodName) {

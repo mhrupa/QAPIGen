@@ -7,40 +7,34 @@
         "properties": [
             {
                 "propertyName": "",
-                "propertyType": "",
-                "validations": []
+                "propertyType": ""
             }
         ]
     },
     "requestHeaders": [
         {
             "propertyName": "",
-            "propertyType": "",
-            "validations": []
+            "propertyType": ""
         }
     ],
     "pathVariables": [
         {
             "propertyName": "",
-            "propertyType": "",
-            "validations": []
+            "propertyType": ""
         }
     ],
     "requestParams": [
         {
             "propertyName": "testProperty",
-            "propertyType": "String",
-            "validations": []
+            "propertyType": "String"
         },
         {
             "propertyName": "testProperty2",
-            "propertyType": "String",
-            "validations": []
+            "propertyType": "String"
         },
         {
             "propertyName": "testProperty3",
-            "propertyType": "int",
-            "validations": []
+            "propertyType": "int"
         }
     ],
     "response": "",
@@ -49,8 +43,7 @@
         "properties": [
             {
                 "propertyName": "",
-                "propertyType": "",
-                "validations": []
+                "propertyType": ""
             }
         ]
     }

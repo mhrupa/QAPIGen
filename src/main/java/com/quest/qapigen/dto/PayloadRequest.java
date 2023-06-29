@@ -23,6 +23,7 @@ public class PayloadRequest {
 	private RequestBody requestBody;
 	private List<RequestHeader> requestHeaders;
 	private List<RequestParam> requestParams;
+	private List<PathVariable> pathVariables;
 	private String response;
 	private Entity entity;
 
