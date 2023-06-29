@@ -86,7 +86,7 @@ public class EntityCodeGenService {
 		sb.append("@AllArgsConstructor\n");
 		sb.append("@Getter\n");
 		sb.append("@Setter\n");
-		if (StringUtils.equals(classType, "Entity")) {
+		if (StringUtils.equals(classType, ApplicationConstants.ENTITY)) {
 			sb.append("@Entity\n");
 		}
 
