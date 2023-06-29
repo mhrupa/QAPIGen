@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quest.qapigen.constants.ApplicationConstants;
 import com.quest.qapigen.dto.Entity;
 import com.quest.qapigen.dto.PayloadRequest;
@@ -28,7 +26,8 @@ public class FlywayCodeGenService {
 	 */
 	public void generateFlywayCode(PayloadRequest requestPayload) {
 		log.info("Flyway Code generation started");
-		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + "flyway-migrations";
+		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER
+				+ "flyway-migrations";
 		String fileName = "V1_1.0_" + "rename_script " + ".sql";
 		String fileContent = generateSqlScript(requestPayload.getEntity());
 
@@ -61,37 +60,37 @@ public class FlywayCodeGenService {
 
 		StringBuilder sqlScript = new StringBuilder();
 		try {
-            String entityName = entity.getEntityName();
-            List<Property> properties = entity.getProperties();
+			String entityName = entity.getEntityName();
+			List<Property> properties = entity.getProperties();
 
-            List<String> propertyNames = new ArrayList<>();
-            List<String> propertyTypes = new ArrayList<>();
+			List<String> propertyNames = new ArrayList<>();
+			List<String> propertyTypes = new ArrayList<>();
 
-            for (Property property : properties) {
-            	String propertyName = property.getPropertyName();
-            	String propertyType = property.getPropertyType();
-            	
-                propertyNames.add(propertyName);
-                propertyTypes.add(propertyType);
-            }
+			for (Property property : properties) {
+				String propertyName = property.getPropertyName();
+				String propertyType = property.getPropertyType();
 
-            sqlScript.append("CREATE TABLE ").append(entityName).append(" (\n");
+				propertyNames.add(propertyName);
+				propertyTypes.add(propertyType);
+			}
 
-            for (int i = 0; i < propertyNames.size(); i++) {
-                String propertyName = propertyNames.get(i);
-                String propertyType = propertyTypes.get(i);
+			sqlScript.append("CREATE TABLE ").append(entityName).append(" (\n");
 
-                sqlScript.append("\t").append(propertyName).append(" ").append(propertyType).append(",\n");
-            }
+			for (int i = 0; i < propertyNames.size(); i++) {
+				String propertyName = propertyNames.get(i);
+				String propertyType = propertyTypes.get(i);
 
-            // Remove the last comma
-            sqlScript.deleteCharAt(sqlScript.lastIndexOf(",")); 
-            sqlScript.append(");\n");
+				sqlScript.append("\t").append(propertyName).append(" ").append(propertyType).append(",\n");
+			}
 
-            log.info("SQL Script:\n" + sqlScript.toString());
-        } catch (Exception e) {
-        	log.info("error in generating sql script" +e);;
-        }
+			// Remove the last comma
+			sqlScript.deleteCharAt(sqlScript.lastIndexOf(","));
+			sqlScript.append(");\n");
+
+			log.info("SQL Script:\n" + sqlScript.toString());
+		} catch (Exception e) {
+			log.info("error in generating sql script" + e);
+		}
 		return sqlScript.toString();
 	}
 }
