@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.services.ApiCodeGeneratorService;
+import com.quest.qapigen.services.EntityCodeGenService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +22,14 @@ public class ApiGeneratorController {
 	@Autowired
 	private ApiCodeGeneratorService apiCodeGeneratorService;
 
+	@Autowired
+	private EntityCodeGenService entityCodeGenService;
+
 	@PostMapping("/generate-api")
 	public void generateApi(@RequestBody PayloadRequest payload) {
 		log.info("Code generation API called.");
 		try {
+			entityCodeGenService.generateModel(payload);
 			apiCodeGeneratorService.generateControllerCode(payload);
 		} catch (IOException | BaseException e) {
 			log.error(ExceptionUtils.getStackTrace(e));
