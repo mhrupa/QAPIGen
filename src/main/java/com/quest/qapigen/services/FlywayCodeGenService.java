@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quest.qapigen.constants.ApplicationConstants;
+import com.quest.qapigen.dto.Entity;
 import com.quest.qapigen.dto.PayloadRequest;
+import com.quest.qapigen.dto.Property;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +26,11 @@ public class FlywayCodeGenService {
 	 * 
 	 * @param payloadRequest
 	 */
-	public void generateFlywayCode(PayloadRequest payloadRequest) {
+	public void generateFlywayCode(PayloadRequest requestPayload) {
 		log.info("Flyway Code generation started");
 		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + "flyway-migrations";
 		String fileName = "V1_1.0_" + "rename_script " + ".sql";
-		String fileContent = generateSqlScript(payloadRequest);
+		String fileContent = generateSqlScript(requestPayload.getEntity());
 
 		try {
 			// Creating the folder
@@ -53,58 +57,41 @@ public class FlywayCodeGenService {
 	 * @param payloadRequest
 	 * @return
 	 */
-	private static String generateSqlScript(PayloadRequest  payloadRequest) {
+	private static String generateSqlScript(Entity entity) {
 
 		StringBuilder sqlScript = new StringBuilder();
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			JsonNode rootNode = objectMapper.readTree(payloadRequest.toString());
+            String entityName = entity.getEntityName();
+            List<Property> properties = entity.getProperties();
 
-			JsonNode entityNode = rootNode.get("entity");
-			String entityName = entityNode.get("entityName").asText();
-			String tableName = entityNode.get("tableName").asText();
+            List<String> propertyNames = new ArrayList<>();
+            List<String> propertyTypes = new ArrayList<>();
 
-			sqlScript.append("CREATE TABLE ").append(tableName).append(" (\n");
+            for (Property property : properties) {
+            	String propertyName = property.getPropertyName();
+            	String propertyType = property.getPropertyType();
+            	
+                propertyNames.add(propertyName);
+                propertyTypes.add(propertyType);
+            }
 
-			JsonNode propertiesNode = entityNode.get("properties");
-			for (JsonNode propertyNode : propertiesNode) {
-				String propertyName = propertyNode.get("propertyName").asText();
-				String propertyType = propertyNode.get("propertyType").asText();
+            sqlScript.append("CREATE TABLE ").append(entityName).append(" (\n");
 
-				sqlScript.append("\t").append(propertyName).append(" ").append(propertyType);
+            for (int i = 0; i < propertyNames.size(); i++) {
+                String propertyName = propertyNames.get(i);
+                String propertyType = propertyTypes.get(i);
 
-				JsonNode validationsNode = propertyNode.get("validations");
-				if (validationsNode.isArray() && validationsNode.size() > 0) {
-					sqlScript.append(" ").append(generateValidations(validationsNode));
-				}
+                sqlScript.append("\t").append(propertyName).append(" ").append(propertyType).append(",\n");
+            }
 
-				sqlScript.append(",\n");
-			}
+            // Remove the last comma
+            sqlScript.deleteCharAt(sqlScript.lastIndexOf(",")); 
+            sqlScript.append(");\n");
 
-			sqlScript.deleteCharAt(sqlScript.lastIndexOf(",")); // Remove the last comma
-			sqlScript.append(");\n");
-
-			log.info("Entity Name: " + entityName);
-			log.info("Table Name: " + tableName);
-			log.info("SQL Script:\n" + sqlScript.toString());
-			return sqlScript.toString();
-		} catch (Exception e) {
-			log.info("error in generating sql script");
-		}
+            log.info("SQL Script:\n" + sqlScript.toString());
+        } catch (Exception e) {
+        	log.info("error in generating sql script" +e);;
+        }
 		return sqlScript.toString();
-	}
-
-	/**
-	 * 
-	 * @param validationsNode
-	 * @return
-	 */
-	private static String generateValidations(JsonNode validationsNode) {
-		StringBuilder validations = new StringBuilder();
-		for (JsonNode validationNode : validationsNode) {
-			String validation = validationNode.asText();
-			validations.append(validation).append(" ");
-		}
-		return validations.toString().trim();
 	}
 }
