@@ -37,31 +37,41 @@ public class ControllerCodeGenService {
 		codeBuilder.append("// package").append(";\n\n");
 		// adding imports
 		codeBuilder.append("import org.springframework.http.ResponseEntity;\n");
-		codeBuilder.append("import org.springframework.web.bind.annotation.*;\n\n");
-		// adding class details
+		codeBuilder.append("import org.springframework.web.bind.annotation.*;\n");
+		codeBuilder.append("import io.swagger.annotations.*;\n\n");
+		
+		// adding RestController annotation
 		codeBuilder.append("@RestController\n");
+		// adding API documentation details
+		codeBuilder.append("@Api(tags = \"<add description here>\")\n");
+		// adding controller class details
 		codeBuilder.append("public class GeneratedController").append(" {\n\n");
 		// adding method details to controller
-		codeBuilder.append("\t").append("@").append(getMethodName(payloadRequest.getMethod())).append("(\"")
-				.append(payloadRequest.getApiUrl()).append("\")").append("\n");
+		codeBuilder.append("\t").append("@").append(getMethodName(payloadRequest.getMethod().toUpperCase()))
+				.append("(\"").append(payloadRequest.getApiUrl()).append("\")").append("\n");
+		// adding API documentation details
+		codeBuilder.append("\t@ApiOperation(value = \"Subscription cancellation for store\",")
+				.append(" produces = \"application/json\",").append("\n\t\tconsumes = \"application/json\")\n");
+		codeBuilder.append("\t@ApiResponses(value = { @ApiResponse(code = 200, message = \"Ok\", response = SuccessResponseDetails.class),\n");
+		codeBuilder.append("\t@ApiResponse(code = 400, message = \"Bad Request\", response = ErrorMessageDetails.class),\n");
+		codeBuilder.append("\t@ApiResponse(code = 404, message = \"Not found\", response = ErrorMessageDetails.class) })\n");
+		//		
+		
 		// adding method details
 		codeBuilder.append("\t").append("public ResponseEntity<String> ").append(payloadRequest.getMethodName())
 				.append("(");
-//		        if (requestDtoName != null && !requestDtoName.isEmpty()) {
-//		            codeBuilder.append("@RequestBody ").append(requestDtoName).append(" requestDto");
-//		            if (responseDtoName != null && !responseDtoName.isEmpty()) {
-//		                codeBuilder.append(", ");
-//		            }
-//		        }
-//		        if (responseDtoName != null && !responseDtoName.isEmpty()) {
-//		            codeBuilder.append("@PathVariable String pathVariable");
-//		        }
-		
+		// adding request parameters as argument if available
 		getRequestParams(payloadRequest, codeBuilder);
+		
+		// adding request headers as argument if available
+		// getRequestHeaders(payloadRequest, codeBuilder);
 		
 		codeBuilder.append(") {\n\n");
 		codeBuilder.append("\t\t// MDC details goes here\n\n");
 		codeBuilder.append("\t\t// Controller logic goes here\n");
+		
+		codeBuilder.append("\n\t\treturn new ResponseEntity<>(HttpStatus.OK.value(), HttpStatus.OK);\n");
+		
 		codeBuilder.append("\t}\n");
 		codeBuilder.append("}");
 
@@ -104,18 +114,32 @@ public class ControllerCodeGenService {
 		
 		if (isParameterAdded) {
 			codeBuilder.append(requestParamString.substring(0, requestParamString.length() - 5));
-
+		}
+	}
+	
+private void getRequestHeaders(PayloadRequest payloadRequest, StringBuilder codeBuilder) throws BaseException {
+		
+		List<RequestParam> requestParams = payloadRequest.getRequestParams();
+		
+		if(CollectionUtils.isEmpty(requestParams)) {
+			return;
+		} 
+		boolean isParameterAdded = false;
+		StringBuilder requestParamString = new StringBuilder();
+		for(RequestParam requestParam: requestParams) {
+			log.info("Testing ******* {}", JsonUtils.toJson(requestParam));
+			if (StringUtils.isNotBlank(requestParam.getPropertyName())
+					&& StringUtils.isNotBlank(requestParam.getPropertyType())) {
+				requestParamString.append("@RequestParam ").append(requestParam.getPropertyType())
+				.append(" ") .append(requestParam.getPropertyName()).append(",\n\t\t ");
+				isParameterAdded = true;
+			}
 		}
 		
-//		 if (requestDtoName != null && !requestDtoName.isEmpty()) {
-//	            codeBuilder.append("@RequestBody ").append(requestDtoName).append(" requestDto");
-//	            if (responseDtoName != null && !responseDtoName.isEmpty()) {
-//	                codeBuilder.append(", ");
-//	            }
-//	        }
-//	        if (responseDtoName != null && !responseDtoName.isEmpty()) {
-//	            codeBuilder.append("@PathVariable String pathVariable");
-//	        }
+		if (isParameterAdded) {
+			codeBuilder.append(requestParamString.substring(0, requestParamString.length() - 5));
+
+		}
 		
 	}
 	
