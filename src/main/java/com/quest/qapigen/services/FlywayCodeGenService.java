@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.quest.qapigen.constants.ApplicationConstants;
@@ -23,34 +24,34 @@ public class FlywayCodeGenService {
 	/**
 	 * 
 	 * @param requestPayload
+	 * @throws IOException
+	 * @throws NullPointerException
 	 */
-	public void generateFlywayCode(PayloadRequest requestPayload) {
+	public void generateFlywayCode(PayloadRequest requestPayload) throws IOException, NullPointerException {
 		log.info("Flyway Code generation started");
 		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER
 				+ "flyway-migrations";
-		String fileName = "V1_1.0_" + "rename_script " + ".sql";
-		String fileContent = generateSqlScript(requestPayload.getEntity());
-
-		try {
-			// Creating the folder
-			Path folderPath = Paths.get(folderName);
-			Files.createDirectories(folderPath);
-
-			// Creating file inside the folder
-			Path filePath = Paths.get(folderName, fileName);
-			Files.createFile(filePath);
-
-			// Write content to the file
-			Files.write(filePath, fileContent.getBytes());
-
-			log.info("Folder and file created successfully.");
-		} catch (IOException e) {
-			log.info("Error in file creation and writing ");
+		String fileName = "V1_1.0_rename_this_script.sql";
+		String fileContent = null;
+		Entity entity = requestPayload.getEntity();
+		if (!StringUtils.isEmpty(entity.getEntityName())) {
+			fileContent = generateSqlScript(entity);
 		}
 
+		// Creating the folder
+		Path folderPath = Paths.get(folderName);
+		Files.createDirectories(folderPath);
+
+		// Creating file inside the folder
+		Path filePath = Paths.get(folderName, fileName);
+		Files.createFile(filePath);
+
+		// Write content to the file
+		Files.write(filePath, fileContent.getBytes());
+
+		log.info("Folder and file created successfully.");
 		log.info("Flyway Code generation ended");
 	}
-
 
 	/**
 	 * 
