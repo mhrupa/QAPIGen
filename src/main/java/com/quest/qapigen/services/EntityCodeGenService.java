@@ -81,12 +81,14 @@ public class EntityCodeGenService {
 		sb.append("import lombok.*;\n\n");
 
 		// adding required lombok annotations
+		sb.append("@Data\n");
 		sb.append("@Builder\n");
 		sb.append("@NoArgsConstructor\n");
 		sb.append("@AllArgsConstructor\n");
 		sb.append("@Getter\n");
 		sb.append("@Setter\n");
 		if (StringUtils.equals(classType, ApplicationConstants.ENTITY)) {
+			sb.append("@Table(name = \"rename_table\")\n");
 			sb.append("@Entity\n");
 		}
 
