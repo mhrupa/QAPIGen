@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quest.qapigen.constants.ApplicationConstants;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.exceptions.BaseException;
 
@@ -23,6 +24,9 @@ public class ApiCodeGeneratorService {
 	@Autowired
 	private FlywayCodeGenService flywayCodeGenService;
 	
+	@Autowired
+	private ZipService zipService;
+	
 	/**
 	 * API code generation service class
 	 * 
@@ -36,6 +40,7 @@ public class ApiCodeGeneratorService {
 		entityCodeGenService.generateModel(requestPayload);
 		controllerCodeGenService.generateControllerCode(requestPayload);
 		flywayCodeGenService.generateFlywayCode(requestPayload);
-		
+		String zipFilePath = "generated-source.zip";
+		zipService.createZip(ApplicationConstants.OUTPUT_FOLDER, zipFilePath);
 	}
 }

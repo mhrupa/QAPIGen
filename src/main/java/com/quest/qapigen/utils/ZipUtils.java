@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.zip.*;
 
 public class ZipUtils {
+	
+	ZipUtils(){}
 
 	/**
 	 * Create a Zip file
