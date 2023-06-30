@@ -1,8 +1,8 @@
-Create controller file
+Create controller file - done
 Service layer code template -- optional
 Create validators
-Create entity file
-Create DTOs as needed
-Create mapper file
-Create flyway script
-Create zip with for the created files
+Create entity file - done
+Create DTOs as needed - done
+Create mapper file - done
+Create flyway script - done
+Create zip with for the created files - done
