@@ -23,6 +23,13 @@ public class ApiCodeGeneratorService {
 	@Autowired
 	private FlywayCodeGenService flywayCodeGenService;
 	
+	/**
+	 * API code generation service class
+	 * 
+	 * @param requestPayload
+	 * @throws IOException
+	 * @throws BaseException
+	 */
 	public void generateApiCode(PayloadRequest requestPayload) throws IOException, BaseException {
 		log.info("API code generation started.");
 		

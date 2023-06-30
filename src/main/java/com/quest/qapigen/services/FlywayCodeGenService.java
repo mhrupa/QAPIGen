@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FlywayCodeGenService {
 
 	/**
+	 * Generate the Flyway Code for the utility
 	 * 
 	 * @param requestPayload
 	 * @throws IOException
@@ -58,6 +59,7 @@ public class FlywayCodeGenService {
 	}
 
 	/**
+	 * Generate the sql script for the Flyway scripts
 	 * 
 	 * @param entity
 	 * @return
@@ -82,6 +84,7 @@ public class FlywayCodeGenService {
 
 			sqlScript.append("CREATE TABLE ").append(entityName).append(" (\n");
 
+			// loop for traversing properties
 			for (int i = 0; i < propertyNames.size(); i++) {
 				String propertyName = propertyNames.get(i);
 				String propertyType = propertyTypes.get(i);

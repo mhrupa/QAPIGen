@@ -7,12 +7,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
+	
+	FileUtils(){}
 
+	/**
+	 * Write content to file
+	 * 
+	 * @param filePath
+	 * @param content
+	 * @throws IOException
+	 */
 	public static void writeToFile(String filePath, StringBuilder content) throws IOException {
 		File dir = new File(OUTPUT_FOLDER);
 		dir.mkdirs();
 
-		// Write the controller code to a file
+		// Write to a file
 		FileWriter writer = new FileWriter(filePath);
 		writer.write(content.toString());
 		writer.flush();

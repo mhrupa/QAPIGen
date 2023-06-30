@@ -33,7 +33,7 @@ public class ErrorResponse implements Serializable{
      */
 
     /**
-     * Detail on the reson for the error code
+     * Detail on the reason for the error code
      */
     private int reasonCode;
 

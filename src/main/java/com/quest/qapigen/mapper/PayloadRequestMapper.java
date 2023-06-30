@@ -12,6 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PayloadRequestMapper {
 
+	/**
+	 * Mapper class for json to dto mapping
+	 * 
+	 * @param jsonPayload
+	 * @return
+	 * @throws BaseException
+	 */
 	public PayloadRequest jsonToDto(String jsonPayload) throws BaseException {
 		log.info("converting request payload to PayloadRequest DTO.");
 		return JsonUtils.fromJson(jsonPayload, PayloadRequest.class);

@@ -21,6 +21,11 @@ public class ApiGeneratorController {
 	@Autowired
 	private ApiCodeGeneratorService apiCodeGeneratorService;
 
+	/**
+	 * Controller class for the utility
+	 * 
+	 * @param payload
+	 */
 	@PostMapping("/generate-api")
 	public void generateApi(@RequestBody PayloadRequest payload) {
 		log.info("Code generation API called.");

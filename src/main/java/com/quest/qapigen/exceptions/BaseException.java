@@ -5,7 +5,7 @@ import java.util.List;
 import com.quest.qapigen.constants.ErrorConstants;
 
 /**
- * Custom exceptions thrown during validation and other tasks by Content Server
+ * Custom exceptions thrown during validation
  *
  */
 public class BaseException extends Exception {

@@ -23,6 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerCodeGenService {
 
+	/**
+	 * Service class for controller code generation
+	 * 
+	 * @param payloadRequest
+	 * @throws IOException
+	 * @throws BaseException
+	 */
 	public void generateControllerCode(PayloadRequest payloadRequest) throws IOException, BaseException {
 		log.info("controller code generation started.");
 		// Generate the code.
@@ -30,6 +37,13 @@ public class ControllerCodeGenService {
 
 	}
 
+	/**
+	 * Generate controller code for the utility
+	 * 
+	 * @param payloadRequest
+	 * @throws IOException
+	 * @throws BaseException
+	 */
 	private void generateController(PayloadRequest payloadRequest) throws IOException, BaseException {
 		String className = getClassNameFromApiUrl(payloadRequest.getApiUrl());
 
@@ -96,6 +110,12 @@ public class ControllerCodeGenService {
 		log.info("Controller code generated successfully at: " + controllerFilePath);
 	}
 
+	/**
+	 * Service class to get class name from API url
+	 * 
+	 * @param apiUrl
+	 * @return
+	 */
 	private static String getClassNameFromApiUrl(String apiUrl) {
 		String[] parts = apiUrl.split("/");
 		StringBuilder classNameBuilder = new StringBuilder();
@@ -107,6 +127,14 @@ public class ControllerCodeGenService {
 		return classNameBuilder.toString();
 	}
 
+	/**
+	 * Service class to get RequestParams
+	 * 
+	 * @param payloadRequest
+	 * @param codeBuilder
+	 * @return
+	 * @throws BaseException
+	 */
 	private boolean getRequestParams(PayloadRequest payloadRequest, StringBuilder codeBuilder)
 			throws BaseException {
 		log.info("Controller code checking for request params");
@@ -129,6 +157,14 @@ public class ControllerCodeGenService {
 		return isParameterAdded;
 	}
 	
+	/**
+	 * Service class to get pathVariables
+	 * 
+	 * @param payloadRequest
+	 * @param codeBuilder
+	 * @return
+	 * @throws BaseException
+	 */
 	private boolean getPathVariables(PayloadRequest payloadRequest, StringBuilder codeBuilder)
 			throws BaseException {
 		log.info("Controller code checking for request params");
@@ -151,6 +187,14 @@ public class ControllerCodeGenService {
 		return isParameterAdded;
 	}
 	
+	/**
+	 * Service class to get requestHeaders
+	 * 
+	 * @param payloadRequest
+	 * @param codeBuilder
+	 * @return
+	 * @throws BaseException
+	 */
 	private boolean getRequestHeaders(PayloadRequest payloadRequest, StringBuilder codeBuilder) throws BaseException {
 		log.info("Controller code checking for request Headers");
 		List<RequestHeader> requestHeaders = payloadRequest.getRequestHeaders();
@@ -173,6 +217,12 @@ public class ControllerCodeGenService {
 		return isParameterAdded;
 	}
 	
+	/**
+	 * Service class to get Method Name
+	 * 
+	 * @param inputMethodName
+	 * @return
+	 */
 	private String getMethodName(String inputMethodName) {
 
 		switch (inputMethodName) {

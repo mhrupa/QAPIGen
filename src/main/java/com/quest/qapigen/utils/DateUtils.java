@@ -14,7 +14,7 @@ import java.util.TimeZone;
 /**
  * Contains date structure
  * 
- * @author GiduguSa
+ * @author RanjanRo
  *
  */
 public class DateUtils {

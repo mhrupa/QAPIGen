@@ -13,6 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ZipService {
 
+	/**
+	 * Create zip for the generated source files
+	 * 
+	 * @param sourceFolderPath
+	 * @param destinationZipPath
+	 */
 	public void createZip(String sourceFolderPath, String destinationZipPath) {
 		// String sourceFolderPath = "/path/to/source/folder";
 		// String destinationZipPath = "/path/to/destination/archive.zip";

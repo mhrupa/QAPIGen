@@ -5,6 +5,13 @@ import java.util.zip.*;
 
 public class ZipUtils {
 
+	/**
+	 * Create a Zip file
+	 * 
+	 * @param sourceFolderPath
+	 * @param destinationZipPath
+	 * @throws IOException
+	 */
 	public static void createZip(String sourceFolderPath, String destinationZipPath) throws IOException {
 		FileOutputStream fos = new FileOutputStream(destinationZipPath);
 		ZipOutputStream zipOut = new ZipOutputStream(fos);
@@ -17,6 +24,14 @@ public class ZipUtils {
 		fos.close();
 	}
 
+	/**
+	 * Code to zip the contents
+	 * 
+	 * @param fileToZip
+	 * @param fileName
+	 * @param zipOut
+	 * @throws IOException
+	 */
 	private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
 		if (fileToZip.isHidden()) {
 			return;
