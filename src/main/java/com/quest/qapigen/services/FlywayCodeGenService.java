@@ -52,7 +52,7 @@ public class FlywayCodeGenService {
 
 			log.info("Folder and file created successfully.");
 		} catch (Exception e) {
-			log.info("Error in writing flyway script");
+			log.info("Error in writing flyway script" + e);
 		}
 		log.info("Flyway Code generation ended");
 	}
@@ -85,6 +85,9 @@ public class FlywayCodeGenService {
 			for (int i = 0; i < propertyNames.size(); i++) {
 				String propertyName = propertyNames.get(i);
 				String propertyType = propertyTypes.get(i);
+				if (propertyType.equals("String")) {
+					propertyType = "varchar(100)";
+				}
 
 				sqlScript.append("\t").append(propertyName).append(" ").append(propertyType).append(",\n");
 			}
