@@ -3,11 +3,11 @@
     "method": "PUT",
     "methodName": "testSomething",
     "requestBody": {
-        "dtoName": "",
+        "dtoName": "SampleDTO",
         "properties": [
             {
-                "propertyName": "",
-                "propertyType": ""
+                "propertyName": "id",
+                "propertyType": "name"
             }
         ]
     },
@@ -38,11 +38,15 @@
         }
     ],
     "entity": {
-        "entityName": "",
+        "entityName": "SampleEntity",
         "properties": [
             {
-                "propertyName": "",
-                "propertyType": ""
+                "propertyName": "id",
+                "propertyType": "int"
+            },
+            {
+                "propertyName": "name",
+                "propertyType": "String"
             }
         ]
     }
