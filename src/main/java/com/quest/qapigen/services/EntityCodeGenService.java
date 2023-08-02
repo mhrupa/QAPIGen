@@ -43,7 +43,7 @@ public class EntityCodeGenService {
 					ApplicationConstants.ENTITY);
 			// Create the controller directory if it doesn't exist
 			writeFile(entityCode, entityRequest.getEntityName());
-			log.info("Entity generation completed " + entityCode);
+			log.info("Entity generation completed ");
 		}
 	}
 

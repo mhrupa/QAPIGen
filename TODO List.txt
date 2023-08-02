@@ -6,3 +6,19 @@ Create DTOs as needed - done
 Create mapper file - done
 Create flyway script - done
 Create zip with for the created files - done
+
+After 1st Review:
+
+Next Steps:
+MDC field in input request 
+Validations - 
+what api would like to be called - BRIM , 
+Service class  added
+JPA Repo - auto generated 
+Multiple entities/Multiple Table
+future stories - this generator can be used 
+GUI - 
+Next stories in backlog
+Chat gpt/Copilot - integration 
+
+APICgen - New Name

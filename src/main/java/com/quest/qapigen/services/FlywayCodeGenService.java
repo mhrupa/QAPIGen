@@ -99,7 +99,7 @@ public class FlywayCodeGenService {
 			sqlScript.deleteCharAt(sqlScript.lastIndexOf(","));
 			sqlScript.append(");\n");
 
-			log.info("SQL Script:\n" + sqlScript.toString());
+//			log.info("SQL Script:\n" + sqlScript.toString());
 		} catch (Exception e) {
 			log.info("error in generating sql script" + e);
 		}
