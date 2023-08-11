@@ -25,6 +25,12 @@ public class ApiCodeGeneratorService {
 	private FlywayCodeGenService flywayCodeGenService;
 	
 	@Autowired
+	private RepositoryCodeGenService repositoryCodeGenService;
+	
+	@Autowired
+	private ServiceCodeGenService serviceCodeGenService;
+	
+	@Autowired
 	private ZipService zipService;
 	
 	/**
@@ -40,6 +46,8 @@ public class ApiCodeGeneratorService {
 		entityCodeGenService.generateModel(requestPayload);
 		controllerCodeGenService.generateControllerCode(requestPayload);
 		flywayCodeGenService.generateFlywayCode(requestPayload);
+		repositoryCodeGenService.generateRepositoryCode(requestPayload);
+		serviceCodeGenService.generateRepositoryCode(requestPayload);
 		String zipFilePath = "generated-source.zip";
 		zipService.createZip(ApplicationConstants.OUTPUT_FOLDER, zipFilePath);
 	}
