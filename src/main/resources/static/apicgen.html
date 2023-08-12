@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        $(document).ready(function () {
+            // Add property fields dynamically
+            $("#addPropertyButton").click(function () {
+                createProperty($("#properties"), "Property");
+            });
+            $("#addHeaderButton").click(function () {
+                createProperty($("#headerProperties"), "Header");
+            });
+            $("#addPathVariableButton").click(function () {
+                createProperty($("#pathVariables"), "Variable");
+            });
+            $("#addRequestParametsButton").click(function () {
+                createProperty($("#requestParams"), "Parameter");
+            });
+            
+
+            // Remove property fields dynamically
+            $(document).on("click", ".removeProperty", function () {
+                $(this).closest(".property").remove();
+            });
+
+            function createProperty(ele, propName) {
+                var propertyDiv = $("<div class='property row g-3 align-items-center pt-2'>");
+
+                propertyDiv.append("<div class='col-auto'><label class='col-form-label' style='width: 80px;text-align: right;'></label></div>");
+                propertyDiv.append("<div class='col-auto'><input type='text' class='form-control' name='propertyNames[]' placeholder='" + propName + " Name'></div>");
+                propertyDiv.append("<div class='col-auto'><input type='text' class='form-control' name='propertyTypes[]' placeholder='" + propName + " Type'></div>");
+                propertyDiv.append("<div class='removeProperty col-auto'><button type='button' class='btn btn-danger'>Remove</button></div>");
+                propertyDiv.append("</div>");
+
+                ele.append(propertyDiv);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <h2>API Configuration</h2>
+    <div id="controllerConfig" class="border rounded-3 p-2">
+        <form id="apiForm">
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label" style="width: 80px;text-align: right;" for="apiUrl">API URL</label>
+                </div>
+                <div class="col-auto">
+                    <input class="form-control" type="text" id="apiUrl" name="apiUrl" value="test-something">
+                </div>
+                <div class="col-auto">
+                    <label class="col-form-label" for="method">Method</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-control" id="method" name="method" style="width: 150px;">
+                        <option value="PUT" selected>POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="PUT">GET</option>
+                        <option value="PUT">PATCH</option>
+                        <option value="PUT">DELETE</option>
+                    </select>
+                </div>
+                <!-- Add more options as needed -->
+            </div>
+
+            <div id="requestBodyParams">
+                <div class="row g-3 align-items-center pt-2">
+                    <div class="col-auto">
+                        <label class="col-form-label" style="width: 80px;text-align: right;" for="dtoName">DTO
+                            Name</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="dtoName" value="SampleDTO">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" id="addPropertyButton">Add Property</button>
+                    </div>
+                </div>
+                <div id="properties">
+                    <!-- Initial property fields -->
+                    <!-- Dynamically add properties -->
+                </div>
+            </div>
+            <div id="requestHeaders">
+                <div class="row g-3 align-items-center pt-2">
+                    <div class="col-auto">
+                        <h5 style="width: 180px;text-align: right;">Request Headers</h5>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" id="addHeaderButton">Add Header</button>
+                    </div>
+                </div>
+
+                <div class="param">
+                    <div id="headerProperties">
+                        <!-- Initial property fields -->
+                        <!-- Dynamically add properties -->
+                    </div>
+                </div>
+            </div>
+            <div id="pathVariablesProp">
+                <div class="row g-3 align-items-center pt-2">
+                    <div class="col-auto">
+                        <h5 style="width: 180px;text-align: right;">Path Variables</h5>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" id="addPathVariableButton">Add Path
+                            Variable</button>
+                    </div>
+                </div>
+                <div class="param">
+                    <div id="pathVariables">
+                        <!-- Dynamically add properties -->
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="requestParamsProps">
+                <div class="row g-3 align-items-center pt-2">
+                    <div class="col-auto">
+                        <h5 style="width: 180px;text-align: right;">Request Parameters</h5>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" id="addRequestParametsButton">Add Request Parameters</button>
+                    </div>
+                </div>
+                <div class="param">
+                    <div id="requestParams">
+                        <!-- Dynamically add properties -->
+                    </div>    
+                </div>
+                <!-- Add more parameter fields dynamically using JavaScript -->
+            </div>
+    </div>
+    
+
+    <h2>Entity:</h2>
+    <label for="entityName">Entity Name:</label> <input type="text" id="entityName" name="entityName"
+        value="SampleEntity"><br>
+    <!-- Add entity properties dynamically using JavaScript -->
+
+     <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+    </div>
+
+</body>
+
+</html>
