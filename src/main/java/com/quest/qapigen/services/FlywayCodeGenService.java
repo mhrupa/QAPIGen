@@ -32,28 +32,33 @@ public class FlywayCodeGenService {
 		log.info("Flyway Code generation started");
 		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER
 				+ "flyway-migrations";
-		String fileName = "V1_1.0_rename_this_script.sql";
+
 		String fileContent = null;
-		Entity entity = requestPayload.getEntity();
-		if (!StringUtils.isEmpty(entity.getEntityName())) {
-			fileContent = generateSqlScript(entity);
-		}
+		String fileName = null;
+		for (int i = 0; i < requestPayload.getEntity().size(); i++) {
+			Entity entity = requestPayload.getEntity().get(i);
+			fileName = "V1_1."+ i + "_rename_this_script.sql";
 
-		try {
-			// Creating the folder
-			Path folderPath = Paths.get(folderName);
-			Files.createDirectories(folderPath);
+			if (!StringUtils.isEmpty(entity.getEntityName())) {
+				fileContent = generateSqlScript(entity);
+			}
 
-			// Creating file inside the folder
-			Path filePath = Paths.get(folderName, fileName);
-			Files.createFile(filePath);
+			try {
+				// Creating the folder
+				Path folderPath = Paths.get(folderName);
+				Files.createDirectories(folderPath);
 
-			// Write content to the file
-			Files.write(filePath, fileContent.getBytes());
+				// Creating file inside the folder
+				Path filePath = Paths.get(folderName, fileName);
+				Files.createFile(filePath);
 
-			log.info("Folder and file created successfully.");
-		} catch (Exception e) {
-			log.info("Error in writing flyway script" + e);
+				// Write content to the file
+				Files.write(filePath, fileContent.getBytes());
+
+				log.info("Folder and file created successfully.");
+			} catch (Exception e) {
+				log.info("Error in writing flyway script" + e);
+			}
 		}
 		log.info("Flyway Code generation ended");
 	}
