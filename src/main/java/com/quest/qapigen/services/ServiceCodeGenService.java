@@ -1,13 +1,10 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
 import com.quest.qapigen.constants.ApplicationConstants;
-import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.utils.FileUtils;
 
@@ -65,7 +62,6 @@ public class ServiceCodeGenService {
 		codeBuilder.append("}");
 
 		// Create the controller directory if it doesn't exist
-		//String folderName = ApplicationConstants.OUTPUT_FOLDER + "service";
 		String controllerFilePathI = "GeneratedService.java";
 		String controllerFilePath = "GeneratedServiceImpl.java";
 		FileUtils.writeToFile(controllerFilePathI, codeBuilderI, ApplicationConstants.FOLDER_SERVICE);

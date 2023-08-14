@@ -1,7 +1,5 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 
 import org.springframework.stereotype.Service;

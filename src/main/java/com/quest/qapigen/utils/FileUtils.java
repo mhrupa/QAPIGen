@@ -21,7 +21,7 @@ public class FileUtils {
 	 */
 	public static void writeToFile(String filePath, StringBuilder content, String folderName) throws IOException {
 		String writefilePath = OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + folderName + ApplicationConstants.PATH_DELIMETER + filePath; 
-		File dir = new File(OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + folderName);//generated-source/
+		File dir = new File(OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + folderName);
 		dir.mkdirs();
 
 		// Write to a file

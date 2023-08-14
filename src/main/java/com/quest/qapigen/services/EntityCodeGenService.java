@@ -1,7 +1,5 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -58,8 +56,7 @@ public class EntityCodeGenService {
 	 * @throws IOException
 	 */
 	private void writeFile(StringBuilder stringBuilder, String className, String folderName) throws IOException {
-		String controllerFilePath =  className + ".java"; //dto/customer_dto.java
-		//folderName + ApplicationConstants.PATH_DELIMETER +
+		String controllerFilePath =  className + ".java"; 
 		FileUtils.writeToFile(controllerFilePath, stringBuilder, folderName);
 	}
 
