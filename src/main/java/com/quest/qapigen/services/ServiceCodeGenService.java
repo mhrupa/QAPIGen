@@ -38,7 +38,7 @@ public class ServiceCodeGenService {
 	 * @throws BaseException
 	 */
 	private void generateService(PayloadRequest payloadRequest) throws IOException, BaseException {
-		String entityName = payloadRequest.getEntity().getEntityName();
+		String entityName = payloadRequest.getEntity().get(0).getEntityName();
 
 		// Generate the repository code
 		StringBuilder codeBuilderI = new StringBuilder();

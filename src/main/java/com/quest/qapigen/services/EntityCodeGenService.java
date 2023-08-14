@@ -29,7 +29,7 @@ public class EntityCodeGenService {
 	 */
 	public void generateModel(PayloadRequest payloadRequest) throws IOException {
 		log.info("Entity & DTO generation started");
-		Entity entityRequest = payloadRequest.getEntity();
+
 		RequestBody dtoRequest = payloadRequest.getRequestBody();
 		if (!StringUtils.isEmpty(dtoRequest.getDtoName())) {
 			StringBuilder dtoCode = generateDataModel(dtoRequest.getDtoName(), dtoRequest.getProperties(),
@@ -38,12 +38,15 @@ public class EntityCodeGenService {
 			writeFile(dtoCode, dtoRequest.getDtoName());
 			log.info("DTO generation completed " + dtoCode);
 		}
-		if (!StringUtils.isEmpty(entityRequest.getEntityName())) {
-			StringBuilder entityCode = generateDataModel(entityRequest.getEntityName(), entityRequest.getProperties(),
-					ApplicationConstants.ENTITY);
-			// Create the controller directory if it doesn't exist
-			writeFile(entityCode, entityRequest.getEntityName());
-			log.info("Entity generation completed " + entityCode);
+		for (int i = 0; i < payloadRequest.getEntity().size(); i++) {
+			Entity entityRequest = payloadRequest.getEntity().get(i);
+			if (!StringUtils.isEmpty(entityRequest.getEntityName())) {
+				StringBuilder entityCode = generateDataModel(entityRequest.getEntityName(),
+						entityRequest.getProperties(), ApplicationConstants.ENTITY);
+				// Create the controller directory if it doesn't exist
+				writeFile(entityCode, entityRequest.getEntityName());
+				log.info("Entity generation completed " + entityCode);
+			}
 		}
 	}
 
