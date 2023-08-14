@@ -3,11 +3,11 @@
     "method": "PUT",
     "methodName": "testSomething",
     "requestBody": {
-        "dtoName": "SampleDTO",
+        "dtoName": "Customer_dto",
         "properties": [
             {
-                "propertyName": "id",
-                "propertyType": "name"
+                "propertyName": "id_dto1",
+                "propertyType": "int"
             }
         ]
     },
@@ -37,17 +37,51 @@
             "propertyType": "int"
         }
     ],
-    "entity": {
-        "entityName": "SampleEntity",
+    "entity": 
+    [
+        {"entityName": "Customer1",
         "properties": [
             {
-                "propertyName": "id",
+                "propertyName": "id1",
                 "propertyType": "int"
             },
             {
-                "propertyName": "name",
+                "propertyName": "name1",
                 "propertyType": "String"
             }
         ]
-    }
+        },
+        {"entityName": "Customer2",
+        "properties": [
+            {
+                "propertyName": "id2",
+                "propertyType": "int"
+            },
+            {
+                "propertyName": "name2",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "name22",
+                "propertyType": "String"
+            }
+        ]
+        },
+        {"entityName": "Customer3",
+        "properties": [
+            {
+                "propertyName": "id3",
+                "propertyType": "int"
+            },
+            {
+                "propertyName": "name3",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "name33",
+                "propertyType": "String"
+            }
+        ]
+        }
+    ]
 }
