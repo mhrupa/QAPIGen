@@ -21,6 +21,10 @@
                 createProperty($("#requestParams"), "Parameter");
             });
 
+            $("#addEntityPropertyButton").click(function () {
+                createProperty($("#entities"), "Property");
+            });
+            
 
             // Remove property fields dynamically
             $(document).on("click", ".removeProperty", function () {
@@ -32,7 +36,19 @@
 
                 // propertyDiv.append("<div class='col-auto'><label class='col-form-label' style='width: 80px;text-align: right;'></label></div>");
                 propertyDiv.append("<div class='col-auto'><input type='text' class='form-control' name='propertyNames[]' placeholder='" + propName + " Name'></div>");
-                propertyDiv.append("<div class='col-auto'><input type='text' class='form-control' name='propertyTypes[]' placeholder='" + propName + " Type'></div>");
+                propertyDiv.append("<div class='col-auto'>"
+                    + "<select class='form-control' name='propertyTypes[]'>"
+                    + "<option value='String' selected>String</option>"
+                    + "<option value='byte'>byte</option>"
+                    + "<option value='short'>short</option>"
+                    + "<option value='int'>int</option>"
+                    + "<option value='long'>long</option>"
+                    + "<option value='float'>float</option>"
+                    + "<option value='double'>double</option>"
+                    + "<option value='boolean'>boolean</option>"
+                    + "<option value='char'>char</option>"
+                    +"</select>"
+                    + "</div>");
                 propertyDiv.append("<div class='removeProperty col-auto'><button type='button' class='btn btn-danger'>Remove</button></div>");
                 propertyDiv.append("</div>");
 
@@ -43,15 +59,19 @@
 </head>
 
 <body>
-    <h2>API Configuration</h2>
-    <div id="controllerConfig" class="border rounded-3 p-2">
-        <form id="apiForm">
+    <h3>API Configuration</h3>
+    <div id="controllerConfig" class="border rounded-3 p-2" style="background-color: rgb(209, 230, 245);">
+        <form id="apiForm" >
             <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label style="font-weight: bold;">Controller Configurations</label>
+                </div>
                 <div class="col-auto">
                     <label class="col-form-label" style="width: 80px;text-align: right;" for="apiUrl">API URL</label>
                 </div>
                 <div class="col-auto">
-                    <input class="form-control" type="text" id="apiUrl" name="apiUrl" value="test-something">
+                    <input style="width: 400px;" class="form-control" type="text" id="apiUrl" name="apiUrl"
+                        value="test-something">
                 </div>
                 <div class="col-auto">
                     <label class="col-form-label" for="method">Method</label>
@@ -69,7 +89,7 @@
             </div>
             <div class="row g-2 pt-2">
                 <div class="col-auto" style="width: 45%;">
-                    <div id="requestBodyParams" class="border rounded-3 p-2" style="background-color: rgba(0,0,0,.03);">
+                    <div id="requestBodyParams" class="border rounded-3 p-2" style="background-color: white;">
                         <div class="row g-3 align-items-center">
                             <div class="col-auto">
                                 <label class="col-form-label" style="width: 80px;text-align: right;" for="dtoName">DTO
@@ -92,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col-auto" style="width: 45%;">
-                    <div id="requestHeaders" class="border rounded-3 p-2" style="background-color: rgba(0,0,0,.03);">
+                    <div id="requestHeaders" class="border rounded-3 p-2" style="background-color: white;">
                         <div class="row g-3 align-items-center">
                             <div class="col-auto">
                                 <label class="col-form-label" for="dtoName">Request Headers</label>
@@ -113,7 +133,7 @@
             </div>
             <div class="row g-2 pt-2">
                 <div class="col-auto" style="width: 45%;">
-                    <div id="pathVariablesProp" class="border rounded-3 p-2" style="background-color: rgba(0,0,0,.03);">
+                    <div id="pathVariablesProp" class="border rounded-3 p-2" style="background-color: white;">
                         <div class="row g-3 align-items-center">
                             <div class="col-auto">
                                 <label class="col-form-label" for="dtoName">Path Variable</label>
@@ -133,7 +153,7 @@
                 </div>
                 <div class="col-auto" style="width: 45%;">
                     <div id="requestParamsProps" class="border rounded-3 p-2"
-                        style="background-color: rgba(0,0,0,.03);">
+                        style="background-color: white;">
                         <div class="row g-3 align-items-center">
                             <div class="col-auto">
                                 <label class="col-form-label" for="dtoName">Request Parameters</label>
@@ -152,17 +172,32 @@
                     </div>
                 </div>
             </div>
+        </form>
     </div>
 
-
-    <h2>Entity:</h2>
-    <label for="entityName">Entity Name:</label> <input type="text" id="entityName" name="entityName"
-        value="SampleEntity"><br>
-    <!-- Add entity properties dynamically using JavaScript -->
-
-    <input type="submit" class="btn btn-success" value="Submit">
-    </form>
+    <div id="controllerConfig" class="border rounded-3 p-2 mt-2" style="background-color: rgb(209, 230, 245);">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label style="font-weight: bold;">Entity Configurations</label>
+            </div>
+            <div class="col-auto">
+                <label class="col-form-label" for="entityName">Entity Name</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" id="entityName" name="entityName" value="SampleEntity">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary" id="addEntityPropertyButton">Add Property</button>
+            </div>
+            <!-- Add entity properties dynamically using JavaScript -->
+            <div class="param">
+                <div id="entities">
+                    <!-- Dynamically add properties -->
+                </div>
+            </div>
+        </div>
     </div>
+    <input type="submit" class="btn btn-success mt-2" value="Submit">
 
 </body>
 
