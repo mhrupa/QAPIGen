@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
+import com.quest.qapigen.constants.ApplicationConstants;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.utils.FileUtils;
@@ -56,8 +57,8 @@ public class RepositoryCodeGenService {
 		codeBuilder.append("}");
 
 		// Create the controller directory if it doesn't exist
-		String controllerFilePath = OUTPUT_FOLDER + "/" + entityName + "Repository.java";
-		FileUtils.writeToFile(controllerFilePath, codeBuilder);
+		String controllerFilePath = entityName + "Repository.java";
+		FileUtils.writeToFile(controllerFilePath, codeBuilder, ApplicationConstants.FOLDER_REPO);
 
 		log.info("Repository code generated successfully at: " + controllerFilePath);
 	}
