@@ -47,7 +47,7 @@ public class ApiCodeGeneratorService {
 		controllerCodeGenService.generateControllerCode(requestPayload);
 		flywayCodeGenService.generateFlywayCode(requestPayload);
 		repositoryCodeGenService.generateRepositoryCode(requestPayload);
-		serviceCodeGenService.generateRepositoryCode(requestPayload);
+		serviceCodeGenService.generateServiceCode();
 		String zipFilePath = "generated-source.zip";
 		zipService.createZip(ApplicationConstants.OUTPUT_FOLDER, zipFilePath);
 	}
