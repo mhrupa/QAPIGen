@@ -1,7 +1,5 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -29,13 +27,13 @@ public class EntityCodeGenService {
 	 */
 	public void generateModel(PayloadRequest payloadRequest) throws IOException {
 		log.info("Entity & DTO generation started");
-
+		
 		RequestBody dtoRequest = payloadRequest.getRequestBody();
 		if (!StringUtils.isEmpty(dtoRequest.getDtoName())) {
 			StringBuilder dtoCode = generateDataModel(dtoRequest.getDtoName(), dtoRequest.getProperties(),
 					ApplicationConstants.DTO);
 			// Create the controller directory if it doesn't exist
-			writeFile(dtoCode, dtoRequest.getDtoName());
+			writeFile(dtoCode, dtoRequest.getDtoName(), ApplicationConstants.FOLDER_DTO);
 			log.info("DTO generation completed " + dtoCode);
 		}
 		for (int i = 0; i < payloadRequest.getEntity().size(); i++) {
@@ -44,7 +42,7 @@ public class EntityCodeGenService {
 				StringBuilder entityCode = generateDataModel(entityRequest.getEntityName(),
 						entityRequest.getProperties(), ApplicationConstants.ENTITY);
 				// Create the controller directory if it doesn't exist
-				writeFile(entityCode, entityRequest.getEntityName());
+				writeFile(entityCode, entityRequest.getEntityName(), ApplicationConstants.FOLDER_ENTITY);
 				log.info("Entity generation completed " + entityCode);
 			}
 		}
@@ -57,9 +55,9 @@ public class EntityCodeGenService {
 	 * @param className
 	 * @throws IOException
 	 */
-	private void writeFile(StringBuilder stringBuilder, String className) throws IOException {
-		String controllerFilePath = OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER + className + ".java";
-		FileUtils.writeToFile(controllerFilePath, stringBuilder);
+	private void writeFile(StringBuilder stringBuilder, String className, String folderName) throws IOException {
+		String controllerFilePath =  className + ".java"; 
+		FileUtils.writeToFile(controllerFilePath, stringBuilder, folderName);
 	}
 
 	/**

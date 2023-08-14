@@ -1,12 +1,10 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
-import com.quest.qapigen.dto.PayloadRequest;
+import com.quest.qapigen.constants.ApplicationConstants;
 import com.quest.qapigen.exceptions.BaseException;
 import com.quest.qapigen.utils.FileUtils;
 
@@ -23,10 +21,10 @@ public class ServiceCodeGenService {
 	 * @throws IOException
 	 * @throws BaseException
 	 */
-	public void generateRepositoryCode(PayloadRequest payloadRequest) throws IOException, BaseException {
+	public void generateServiceCode() throws IOException, BaseException {
 		log.info("Service code generation started.");
 		// Generate the code.
-		generateService(payloadRequest);
+		generateService();
 
 	}
 
@@ -37,8 +35,7 @@ public class ServiceCodeGenService {
 	 * @throws IOException
 	 * @throws BaseException
 	 */
-	private void generateService(PayloadRequest payloadRequest) throws IOException, BaseException {
-		String entityName = payloadRequest.getEntity().get(0).getEntityName();
+	private void generateService() throws IOException, BaseException {
 
 		// Generate the repository code
 		StringBuilder codeBuilderI = new StringBuilder();
@@ -65,10 +62,10 @@ public class ServiceCodeGenService {
 		codeBuilder.append("}");
 
 		// Create the controller directory if it doesn't exist
-		String controllerFilePathI = OUTPUT_FOLDER + "/" + "GeneratedService.java";
-		String controllerFilePath = OUTPUT_FOLDER + "/" + "GeneratedServiceImpl.java";
-		FileUtils.writeToFile(controllerFilePathI, codeBuilderI);
-		FileUtils.writeToFile(controllerFilePath, codeBuilder);
+		String controllerFilePathI = "GeneratedService.java";
+		String controllerFilePath = "GeneratedServiceImpl.java";
+		FileUtils.writeToFile(controllerFilePathI, codeBuilderI, ApplicationConstants.FOLDER_SERVICE);
+		FileUtils.writeToFile(controllerFilePath, codeBuilder, ApplicationConstants.FOLDER_SERVICE);
 
 		log.info("Service code generated successfully at: " + controllerFilePath);
 	}
