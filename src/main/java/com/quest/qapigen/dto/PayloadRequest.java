@@ -25,6 +25,6 @@ public class PayloadRequest {
 	private List<RequestParam> requestParams;
 	private List<PathVariable> pathVariables;
 	private String response;
-	private Entity entity;
+	private List<Entity> entity;
 
 }

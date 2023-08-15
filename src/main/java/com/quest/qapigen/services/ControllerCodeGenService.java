@@ -5,10 +5,12 @@ import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.catalina.loader.WebappLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.quest.qapigen.constants.ApplicationConstants;
 import com.quest.qapigen.dto.PathVariable;
 import com.quest.qapigen.dto.PayloadRequest;
 import com.quest.qapigen.dto.RequestHeader;
@@ -104,8 +106,8 @@ public class ControllerCodeGenService {
 		codeBuilder.append("}");
 
 		// Create the controller directory if it doesn't exist
-		String controllerFilePath = OUTPUT_FOLDER + "/" + className + ".java";
-		FileUtils.writeToFile(controllerFilePath, codeBuilder);
+		String controllerFilePath = className + ".java";
+		FileUtils.writeToFile(controllerFilePath, codeBuilder, ApplicationConstants.FOLDER_CONTROLLER);
 
 		log.info("Controller code generated successfully at: " + controllerFilePath);
 	}
