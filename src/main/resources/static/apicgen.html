@@ -125,7 +125,7 @@
                       >Path Variable</label
                     >
                   </div>
-                  <div class="col-auto  ms-auto">
+                  <div class="col-auto ms-auto">
                     <button
                       type="button"
                       class="btn btn-primary"
@@ -154,7 +154,7 @@
                       >Request Parameters</label
                     >
                   </div>
-                  <div class="col-auto  ms-auto">
+                  <div class="col-auto ms-auto">
                     <button
                       type="button"
                       class="btn btn-primary"
@@ -172,27 +172,29 @@
               </div>
             </div>
           </div>
+          <div class="border rounded p-3 mt-3" style="background-color: white">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <label style="font-weight: bold">Entity Configurations</label>
+              </div>
+              <div class="col-auto">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="addEntityButton"
+                >
+                  Add Entity
+                </button>
+              </div>
+            </div>
+            <div id="entities" class="mt-3"></div>
+          </div>
         </form>
       </div>
 
-      <div
-        class="border rounded p-3 mt-3"
-        style="background-color: rgb(209, 230, 245)"
-      >
-        <div class="row align-items-center">
-          <div class="col-auto">
-            <label style="font-weight: bold">Entity Configurations</label>
-          </div>
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary" id="addEntityButton">
-              Add Entity
-            </button>
-          </div>
-        </div>
-        <div id="entities" class="mt-3"></div>
-      </div>
-
-      <input type="submit" class="btn btn-success mt-3" value="Submit" />
+      <button type="button" class="btn btn-success mt-3" id="submitRequest">
+        Submit
+      </button>
     </div>
   </body>
 </html>
