@@ -33,7 +33,7 @@ public class FlywayCodeGenService {
 		String folderName = ApplicationConstants.OUTPUT_FOLDER + ApplicationConstants.PATH_DELIMETER
 				+ "flyway-migrations";
 
-		String fileContent = null;
+		String fileContent = "";
 		String fileName = null;
 		for (int i = 0; i < requestPayload.getEntity().size(); i++) {
 			Entity entity = requestPayload.getEntity().get(i);

@@ -1,11 +1,8 @@
 package com.quest.qapigen.services;
 
-import static com.quest.qapigen.constants.ApplicationConstants.OUTPUT_FOLDER;
-
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.catalina.loader.WebappLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -149,7 +146,7 @@ public class ControllerCodeGenService {
 		for(RequestParam requestParam: requestParams) {
 			if (StringUtils.isNotBlank(requestParam.getPropertyName())
 					&& StringUtils.isNotBlank(requestParam.getPropertyType())) {
-				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(requestParam.getPropertyName())
+				codeBuilder.append(ApplicationConstants.API_PARAM_NAME).append(requestParam.getPropertyName())
 						.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @RequestParam ")
 						.append(requestParam.getPropertyType()).append(" ").append(requestParam.getPropertyName())
 						.append(",\n");
@@ -179,7 +176,7 @@ public class ControllerCodeGenService {
 		for(PathVariable pathVariable: pathVariables) {
 			if (StringUtils.isNotBlank(pathVariable.getPropertyName())
 					&& StringUtils.isNotBlank(pathVariable.getPropertyType())) {
-				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(pathVariable.getPropertyName())
+				codeBuilder.append(ApplicationConstants.API_PARAM_NAME).append(pathVariable.getPropertyName())
 						.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @PathVariable ")
 						.append(pathVariable.getPropertyType()).append(" ").append(pathVariable.getPropertyName())
 						.append(",\n");
@@ -209,7 +206,7 @@ public class ControllerCodeGenService {
 			log.info("Testing ******* {}", JsonUtils.toJson(requestHeader));
 			if (StringUtils.isNotBlank(requestHeader.getPropertyName())
 					&& StringUtils.isNotBlank(requestHeader.getPropertyType())) {
-				codeBuilder.append("\t\t\t@ApiParam(name = \"").append(requestHeader.getPropertyName())
+				codeBuilder.append(ApplicationConstants.API_PARAM_NAME).append(requestHeader.getPropertyName())
 				.append("\", value = \"<PROVIDE PROPERTY DESCRIPTION/DETAILS>\") @RequestHeader ")
 				.append(requestHeader.getPropertyType()).append(" ").append(requestHeader.getPropertyName())
 				.append(",\n");

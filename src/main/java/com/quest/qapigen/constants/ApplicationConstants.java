@@ -14,4 +14,6 @@ public class ApplicationConstants {
 	public static final String FOLDER_CONTROLLER = "controller";
 	public static final String FOLDER_REPO = "repo";
 	public static final String FOLDER_SERVICE = "service";
+
+	public static final String API_PARAM_NAME = "\t\t\t@ApiParam(name = \"";
 }

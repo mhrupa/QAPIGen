@@ -1,99 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script>
-        $(document).ready(function () {
-            // Add property fields dynamically
-            $("#addPropertyButton").click(function () {
-                createProperty($("#properties"), "Property");
-            });
-            $("#addHeaderButton").click(function () {
-                createProperty($("#headerProperties"), "Header");
-            });
-            $("#addPathVariableButton").click(function () {
-                createProperty($("#pathVariables"), "Variable");
-            });
-            $("#addRequestParametsButton").click(function () {
-                createProperty($("#requestParams"), "Parameter");
-            });
-
-            $("#addEntityPropertyButton").click(function () {
-                createProperty($("#entityProperties"), "Property");
-            });
-
-            $("#addEntityButton").click(function () {
-                addEntity($("#entities"), "Property");
-            });
-
-            // Remove property fields dynamically
-            $(document).on("click", ".removeProperty", function () {
-                $(this).closest(".property").remove();
-            });
-        });
-
-        function addEntity(ele, propName) {
-            var propertyDiv = $("<div>", { class: "row g-3 align-items-center pt-2" });
-
-            propertyDiv.append($("<div>", { class: "col-auto" }).append(
-                $("<label>", { class: "col-form-label", for: "entityName" }).text("Entity Name")
-            ));
-
-            propertyDiv.append($("<div>", { class: "col-auto" }).append(
-                $("<input>", { type: "text", class: "form-control", id: "entityName", name: "entityName", value: "SampleEntity" })
-            ));
-
-            propertyDiv.append($("<div>", { class: "col-auto" }).append(
-                $("<button>", { type: "button", class: "btn btn-primary", id: "addEntityPropertyButton" }).text("Add Property")
-                    .on("click", function () {
-                        addEntityProperty(this);
-                    })
-            ));
-
-            propertyDiv.append($("<div>", { class: "param" }).append(
-                $("<div>", { id: "entityProperties" })
-            ));
-
-            $(ele).append(propertyDiv);
-        }
-
-        function createProperty(ele, propName) {
-            var propertyDiv = $("<div>", { class: "property row g-3 align-items-center pt-2" });
-
-            propertyDiv.append($("<div>", { class: "col-auto" }).append(
-                $("<input>", { type: "text", class: "form-control", name: "propertyNames[]", placeholder: propName + " Name" })
-            ));
-
-            propertyDiv.append($("<div>", { class: "col-auto" }).append(
-                $("<select>", { class: "form-control", name: "propertyTypes[]" }).append(
-                    $("<option>", { value: "0", selected: "selected" }).text("Please Select"),
-                    $("<option>", { value: "String" }).text("String"),
-                    $("<option>", { value: "byte" }).text("byte"),
-                    $("<option>", { value: "short" }).text("short"),
-                    $("<option>", { value: "int" }).text("int"),
-                    $("<option>", { value: "long" }).text("long"),
-                    $("<option>", { value: "float" }).text("float"),
-                    $("<option>", { value: "double" }).text("double"),
-                    $("<option>", { value: "boolean" }).text("boolean"),
-                    $("<option>", { value: "char" }).text("char")
-                )
-            ));
-
-            propertyDiv.append($("<div>", { class: "removeProperty col-auto" }).append(
-                $("<button>", { type: "button", class: "btn btn-danger" }).text("Remove")
-            ));
-
-            ele.append(propertyDiv);
-        }
-
-        function addEntityProperty(ele) {
-            var entityPropertiesEle = $(ele).parent().parent().children();
-            createProperty($(entityPropertiesEle[3]), "Property");
-        }
-    </script>
+    <title></title>
+    <script src="/js/apicgen.js"></script>
 </head>
 
 <body>
@@ -222,21 +133,6 @@
             </div>
         </div>
         <div id="entities" class="col-auto">
-            <!-- <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                    <label class="col-form-label" for="entityName">Entity Name</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="entityName" name="entityName" value="SampleEntity">
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary" id="addEntityPropertyButton">Add Property</button>
-                </div>
-                <div class="param">
-                    <div id="entityProperties">
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     </div>
