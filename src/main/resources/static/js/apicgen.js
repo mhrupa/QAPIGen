@@ -66,13 +66,22 @@ function createProperty(ele, propName) {
         $("<select>", { class: "form-control", name: "propertyTypes[]" }).append(
             $("<option>", { value: "0", selected: "selected" }).text("Please Select"),
             $("<option>", { value: "String" }).text("String"),
-            // ... (other options)
+            $("<option>", { value: "int" }).text("int"),
+            $("<option>", { value: "long" }).text("long"),
+            $("<option>", { value: "double" }).text("double"),
+            $("<option>", { value: "short" }).text("short"),
+            $("<option>", { value: "byte" }).text("byte"),
+            $("<option>", { value: "boolean" }).text("boolean"),
         )
     ));
 
     propertyDiv.append($("<div>", { class: "removeProperty col-auto" }).append(
-        $("<button>", { type: "button", class: "btn btn-danger" }).text("Remove")
+        $("<button>", { type: "button", class: "btn btn-danger", title: "remove" }).append(
+            $("<i>"),
+            "&nbsp;-&nbsp;"
+        )
     ));
+
 
     ele.append(propertyDiv);
 }

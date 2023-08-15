@@ -1,144 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     <script src="/js/apicgen.js"></script>
-</head>
+  </head>
 
-<body>
-    <h3>API Configuration</h3>
-    <div id="controllerConfig" class="border rounded-3 p-2" style="background-color: rgb(209, 230, 245);">
+  <body>
+    <div class="container mt-4">
+      <h3>API Configuration</h3>
+      <div
+        id="controllerConfig"
+        class="border rounded p-3"
+        style="background-color: rgb(209, 230, 245)"
+      >
         <form id="apiForm">
-            <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                    <label style="font-weight: bold;">Controller Configurations</label>
-                </div>
-                <div class="col-auto">
-                    <label class="col-form-label" style="width: 80px;text-align: right;" for="apiUrl">API URL</label>
-                </div>
-                <div class="col-auto">
-                    <input style="width: 400px;" class="form-control" type="text" id="apiUrl" name="apiUrl"
-                        value="test-something">
-                </div>
-                <div class="col-auto">
-                    <label class="col-form-label" for="method">Method</label>
-                </div>
-                <div class="col-auto">
-                    <select class="form-control" id="method" name="method" style="width: 150px;">
-                        <option value="PUT" selected>POST</option>
-                        <option value="PUT">PUT</option>
-                        <option value="PUT">GET</option>
-                        <option value="PUT">PATCH</option>
-                        <option value="PUT">DELETE</option>
-                    </select>
-                </div>
-                <!-- Add more options as needed -->
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <label style="font-weight: bold">Controller Configurations</label>
             </div>
-            <div class="row g-2 pt-2">
-                <div class="col-auto" style="width: 45%;">
-                    <div id="requestBodyParams" class="border rounded-3 p-2" style="background-color: white;">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label class="col-form-label" style="width: 80px;text-align: right;" for="dtoName">DTO
-                                    Name</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control" name="dtoName" value="SampleDTO">
-                            </div>
-
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" id="addPropertyButton">Add
-                                    Property</button>
-                            </div>
-
-                        </div>
-                        <div id="properties">
-                            <!-- Initial property fields -->
-                            <!-- Dynamically add properties -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto" style="width: 45%;">
-                    <div id="requestHeaders" class="border rounded-3 p-2" style="background-color: white;">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label class="col-form-label" for="dtoName">Request Headers</label>
-                            </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" id="addHeaderButton">Add Header</button>
-                            </div>
-                        </div>
-
-                        <div class="param">
-                            <div id="headerProperties">
-                                <!-- Initial property fields -->
-                                <!-- Dynamically add properties -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-auto">
+              <label class="col-form-label" for="apiUrl">API URL</label>
             </div>
-            <div class="row g-2 pt-2">
-                <div class="col-auto" style="width: 45%;">
-                    <div id="pathVariablesProp" class="border rounded-3 p-2" style="background-color: white;">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label class="col-form-label" for="dtoName">Path Variable</label>
-                            </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" id="addPathVariableButton">Add Path
-                                    Variable</button>
-                            </div>
-                        </div>
-                        <div class="param">
-                            <div id="pathVariables">
-                                <!-- Dynamically add properties -->
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto" style="width: 45%;">
-                    <div id="requestParamsProps" class="border rounded-3 p-2" style="background-color: white;">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label class="col-form-label" for="dtoName">Request Parameters</label>
-                            </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" id="addRequestParametsButton">Add Request
-                                    Parameters</button>
-                            </div>
-                        </div>
-                        <div class="param">
-                            <div id="requestParams">
-                                <!-- Dynamically add properties -->
-                            </div>
-                        </div>
-                        <!-- Add more parameter fields dynamically using JavaScript -->
-                    </div>
-                </div>
+            <div class="col-auto">
+              <input
+                class="form-control"
+                type="text"
+                id="apiUrl"
+                name="apiUrl"
+                value="test-something"
+              />
             </div>
+            <div class="col-auto">
+              <label class="col-form-label" for="method">Method</label>
+            </div>
+            <div class="col-auto">
+              <select class="form-control" id="method" name="method">
+                <option value="POST" selected>POST</option>
+                <option value="PUT">PUT</option>
+                <option value="GET">GET</option>
+                <option value="PATCH">PATCH</option>
+                <option value="DELETE">DELETE</option>
+              </select>
+            </div>
+            <!-- Add more options as needed -->
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div
+                id="requestBodyParams"
+                class="border rounded p-3"
+                style="background-color: white"
+              >
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="dtoName">DTO Name</label>
+                  </div>
+                  <div class="col-auto">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="dtoName"
+                      value="SampleDTO"
+                    />
+                  </div>
+                  <div class="col-auto ms-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="addPropertyButton"
+                    >
+                      Add Property
+                    </button>
+                  </div>
+                </div>
+                <div id="properties" class="mt-3">
+                  <!-- Initial property fields -->
+                  <!-- Dynamically add properties -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                id="requestHeaders"
+                class="border rounded p-3 mt-3 mt-md-0"
+                style="background-color: white"
+              >
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="dtoName"
+                      >Request Headers</label
+                    >
+                  </div>
+                  <div class="col-auto ms-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="addHeaderButton"
+                    >
+                      Add Header
+                    </button>
+                  </div>
+                </div>
+                <div class="param mt-3">
+                  <div id="headerProperties">
+                    <!-- Initial property fields -->
+                    <!-- Dynamically add properties -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div
+                id="pathVariablesProp"
+                class="border rounded p-3"
+                style="background-color: white"
+              >
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="dtoName"
+                      >Path Variable</label
+                    >
+                  </div>
+                  <div class="col-auto  ms-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="addPathVariableButton"
+                    >
+                      Add Variable
+                    </button>
+                  </div>
+                </div>
+                <div class="param mt-3">
+                  <div id="pathVariables">
+                    <!-- Dynamically add properties -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                id="requestParamsProps"
+                class="border rounded p-3 mt-3 mt-md-0"
+                style="background-color: white"
+              >
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="dtoName"
+                      >Request Parameters</label
+                    >
+                  </div>
+                  <div class="col-auto  ms-auto">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="addRequestParametsButton"
+                    >
+                      Add Parameters
+                    </button>
+                  </div>
+                </div>
+                <div class="param mt-3">
+                  <div id="requestParams">
+                    <!-- Dynamically add properties -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
-    </div>
+      </div>
 
-    <div id="controllerConfig" class="border rounded-3 p-2 mt-2" style="background-color: rgb(209, 230, 245);">
-        <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <label style="font-weight: bold;">Entity Configurations</label>
-            </div>
-            <div class="col-auto">
-                <button type="button" class="btn btn-primary" id="addEntityButton">Add Entity</button>
-            </div>
+      <div
+        class="border rounded p-3 mt-3"
+        style="background-color: rgb(209, 230, 245)"
+      >
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <label style="font-weight: bold">Entity Configurations</label>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary" id="addEntityButton">
+              Add Entity
+            </button>
+          </div>
         </div>
-        <div id="entities" class="col-auto">
-        </div>
-    </div>
-    </div>
-    </div>
-    <input type="submit" class="btn btn-success mt-2" value="Submit">
+        <div id="entities" class="mt-3"></div>
+      </div>
 
-</body>
-
+      <input type="submit" class="btn btn-success mt-3" value="Submit" />
+    </div>
+  </body>
 </html>
